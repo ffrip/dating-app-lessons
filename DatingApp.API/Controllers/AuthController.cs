@@ -24,6 +24,7 @@ namespace DatingApp.API.Controllers
             _repo = repo;
         }
 
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -40,6 +41,7 @@ namespace DatingApp.API.Controllers
 
             return StatusCode(201);
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
@@ -60,7 +62,7 @@ namespace DatingApp.API.Controllers
                     _config.GetSection("AppSettings:Token").Value
                 )
             );
-            
+
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -74,7 +76,8 @@ namespace DatingApp.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
         }
