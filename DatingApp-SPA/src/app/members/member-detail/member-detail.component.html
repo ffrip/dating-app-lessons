@@ -5,66 +5,56 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img
-          src="{{ user.photoUrl || '../../../../../assets/user.png'}}"
-          alt="{{ user.knownAs }}"
-          class="card-img-top img-thumbnail"
-        />
+          <img class="card-img-top img-thumbnail" src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}">
         <div class="card-body">
           <div>
-            <strong>Location:</strong>
-            <p>{{ user.city }}, {{ user.country }}</p>
+            <strong>Location</strong>
+            <p>{{user.city}}, {{user?.country}}</p>
           </div>
           <div>
-            <strong>Age:</strong>
-            <p>{{ user.age }}</p>
+            <strong>Age</strong>
+            <p>{{user.age}}</p>
           </div>
           <div>
-            <strong>Last active:</strong>
-            <p>{{ user.lastActive | timeago}}</p>
+            <strong>Last Active</strong>
+            <p>{{user.lastActive | timeago}}</p>
           </div>
           <div>
-            <strong>Member since:</strong>
-            <p>{{ user.created  | date: 'mediumDate'}}</p>
+            <strong>Member since</strong>
+            <p>{{user.created | date: 'mediumDate'}}</p>
           </div>
         </div>
         <div class="card-footer">
           <div class="btn-group d-flex">
             <button class="btn btn-primary w-100">Like</button>
-            <button class="btn btn-success w-100">Message</button>
+            <button class="btn btn-success w-100" (click)="selectTab(3)">Message</button>
           </div>
         </div>
       </div>
     </div>
-
     <div class="col-sm-8">
+      <div class="card card-body">
       <div class="tab-panel">
-        <tabset class="member-tabset">
-          <tab heading="About {{ user.knownAs }}">
+        <tabset class="member-tabset" #memberTabs>
+          <tab heading="About {{user.knownAs}}">
             <h4>Description</h4>
-            <p>{{ user.introduction }}</p>
+            <p>{{user.introduction}}</p>
             <h4>Looking for</h4>
-            <p>{{ user.lookingFor }}</p>
+            <p>{{user.lookingFor}}</p>
           </tab>
-
           <tab heading="Interests">
             <h4>Interests</h4>
-            <p>{{ user.interests }}</p>
+            <p>{{user.interests}}</p>
           </tab>
-
           <tab heading="Photos">
-            <ngx-gallery
-              [options]="galleryOptions"
-              [images]="galleryImages"
-              style="display: inline-block; margin-bottom: 20px;"
-            ></ngx-gallery>
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>
-
           <tab heading="Messages">
-            <p>Messages will go here</p>
+              <app-member-messages [recipientId]="user.id"></app-member-messages>
           </tab>
         </tabset>
       </div>
     </div>
   </div>
-</div>
+  </div>
+</div> 
